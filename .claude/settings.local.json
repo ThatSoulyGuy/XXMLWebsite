@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "Bash(npm install:*)",
+      "Bash(npx prisma:*)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(npx tsx:*)",
+      "Bash(npx tsc:*)",
+      "Bash(del \"D:\\IntelliJ\\CLion\\Projects\\xxml-website\\src\\components\\issues\\issue-edit-form.tsx\")",
+      "Bash(cd:*)",
+      "Bash(del \"D:\\IntelliJ\\CLion\\Projects\\xxml-website\\src\\components\\issues\\issue-comment-delete-button.tsx\")",
+      "Bash(del \"D:\\IntelliJ\\CLion\\Projects\\xxml-website\\src\\components\\posts\\post-comment-delete-button.tsx\")",
+      "Bash(dir:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,271 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ===== AUTH MODELS =====
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  password      String?
+  name          String?
+  username      String?   @unique
+  image         String?
+  bio           String?
+  gender        String?   // MALE, FEMALE, OTHER, PREFER_NOT_TO_SAY
+  role          String    @default("USER") // USER, DEVELOPER, MODERATOR, ADMIN
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts              Account[]
+  sessions              Session[]
+  issues                Issue[]
+  issueComments         IssueComment[]
+  issueRevisions        IssueRevision[]
+  issueCommentRevisions IssueCommentRevision[] @relation("IssueCommentEditor")
+  posts                 Post[]
+  postComments          PostComment[]
+  postCommentRevisions  PostCommentRevision[]  @relation("PostCommentEditor")
+  notifications         Notification[]
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  message   String
+  type      String   @default("info") // info, success, error
+  read      Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ===== ISSUE TRACKER =====
+model Issue {
+  id             String          @id @default(cuid())
+  number         Int             @unique
+  title          String
+  body           String
+  status         String          @default("OPEN")
+  priority       String          @default("MEDIUM")
+  showOriginal   Boolean         @default(false) // Admin control to show original instead of current
+  authorId       String
+  author         User            @relation(fields: [authorId], references: [id])
+  labels         IssueLabel[]
+  comments       IssueComment[]
+  revisions      IssueRevision[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  closedAt       DateTime?
+}
+
+model IssueRevision {
+  id        String   @id @default(cuid())
+  title     String
+  body      String
+  priority  String
+  issueId   String
+  issue     Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  editorId  String
+  editor    User     @relation(fields: [editorId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@index([issueId])
+}
+
+model Label {
+  id          String       @id @default(cuid())
+  name        String       @unique
+  color       String       @default("#6b7280")
+  description String?
+  issues      IssueLabel[]
+}
+
+model IssueLabel {
+  issueId String
+  labelId String
+  issue   Issue  @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  label   Label  @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([issueId, labelId])
+}
+
+model IssueComment {
+  id        String                 @id @default(cuid())
+  body      String
+  issueId   String
+  issue     Issue                  @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User                   @relation(fields: [authorId], references: [id])
+  revisions IssueCommentRevision[]
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+}
+
+model IssueCommentRevision {
+  id        String       @id @default(cuid())
+  body      String
+  commentId String
+  comment   IssueComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  editorId  String
+  editor    User         @relation("IssueCommentEditor", fields: [editorId], references: [id])
+  createdAt DateTime     @default(now())
+
+  @@index([commentId])
+}
+
+// ===== BLOG/FORUM =====
+model Category {
+  id          String @id @default(cuid())
+  name        String @unique
+  slug        String @unique
+  description String?
+  color       String @default("#3b82f6")
+  sortOrder   Int    @default(0)
+  posts       Post[]
+}
+
+model Post {
+  id         String        @id @default(cuid())
+  title      String
+  slug       String        @unique
+  excerpt    String?
+  body       String
+  type       String        @default("DISCUSSION")
+  status     String        @default("PUBLISHED")
+  isPinned   Boolean       @default(false)
+  viewCount  Int           @default(0)
+  authorId   String
+  author     User          @relation(fields: [authorId], references: [id])
+  categoryId String
+  category   Category      @relation(fields: [categoryId], references: [id])
+  comments   PostComment[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model PostComment {
+  id        String                @id @default(cuid())
+  body      String
+  postId    String
+  post      Post                  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User                  @relation(fields: [authorId], references: [id])
+  parentId  String?
+  revisions PostCommentRevision[]
+  createdAt DateTime              @default(now())
+  updatedAt DateTime              @updatedAt
+}
+
+model PostCommentRevision {
+  id        String      @id @default(cuid())
+  body      String
+  commentId String
+  comment   PostComment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  editorId  String
+  editor    User        @relation("PostCommentEditor", fields: [editorId], references: [id])
+  createdAt DateTime    @default(now())
+
+  @@index([commentId])
+}
+
+// ===== DOCUMENTATION CMS =====
+model DocModule {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  name        String
+  description String
+  importPath  String
+  sortOrder   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  classes     DocClass[]
+}
+
+model DocClass {
+  id          String       @id @default(cuid())
+  slug        String
+  name        String
+  description String
+  constraints String?
+  sortOrder   Int          @default(0)
+  moduleId    String
+  module      DocModule    @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  methods     DocMethod[]
+  examples    DocExample[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([moduleId, slug])
+}
+
+model DocMethod {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   @default("Methods")
+  params      String
+  returns     String
+  description String
+  sortOrder   Int      @default(0)
+  classId     String
+  class       DocClass @relation(fields: [classId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([classId])
+}
+
+model DocExample {
+  id        String   @id @default(cuid())
+  title     String?
+  code      String
+  filename  String?
+  showLines Boolean  @default(false)
+  sortOrder Int      @default(0)
+  classId   String
+  class     DocClass @relation(fields: [classId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([classId])
+}
