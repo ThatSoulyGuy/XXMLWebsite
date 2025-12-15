@@ -13,7 +13,10 @@
       "Bash(cd:*)",
       "Bash(del \"D:\\IntelliJ\\CLion\\Projects\\xxml-website\\src\\components\\issues\\issue-comment-delete-button.tsx\")",
       "Bash(del \"D:\\IntelliJ\\CLion\\Projects\\xxml-website\\src\\components\\posts\\post-comment-delete-button.tsx\")",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(cat:*)",
+      "Bash(openssl rand:*)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

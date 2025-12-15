@@ -18,6 +18,10 @@ const footerLinks = {
     { name: "Standard Library", href: "/docs/standard-library" },
     { name: "Blog", href: "/blog" },
   ],
+  legal: [
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+  ],
 };
 
 export function Footer() {
@@ -27,7 +31,7 @@ export function Footer() {
       <div className="absolute inset-0 bg-gradient-to-t from-cyan-500/5 to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="group flex items-center gap-2">
@@ -91,6 +95,22 @@ export function Footer() {
             <h3 className="text-sm font-bold text-slate-900 dark:text-white">Resources</h3>
             <ul className="mt-4 space-y-3">
               {footerLinks.resources.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-slate-500 transition-colors hover:text-cyan-500 dark:text-slate-400"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Legal</h3>
+            <ul className="mt-4 space-y-3">
+              {footerLinks.legal.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.href}

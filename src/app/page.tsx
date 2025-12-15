@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Bug, MessageSquare, Zap, Shield, Cpu, ArrowRight, Github, Terminal } from "lucide-react";
+import { BookOpen, Bug, MessageSquare, Zap, Shield, Cpu, ArrowRight, Github, Terminal, Puzzle, Database, Search, Layout, Server, GraduationCap } from "lucide-react";
 
 export default function Home() {
   return (
@@ -177,17 +177,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Links Section */}
-      <section className="relative overflow-hidden border-t border-cyan-500/20 px-4 py-28 sm:px-6 lg:px-8">
+      {/* Use Cases Section */}
+      <section className="relative overflow-hidden border-y border-cyan-500/20 px-4 py-28 sm:px-6 lg:px-8">
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-gray-950" />
         <div className="grid-pattern absolute inset-0 opacity-30" />
 
+        {/* Background glow */}
+        <div className="absolute right-1/4 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-violet-500/10 blur-[120px]" />
+        <div className="absolute left-1/4 top-1/2 h-96 w-96 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[120px]" />
+
+        <div className="relative mx-auto max-w-6xl">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-black text-white sm:text-5xl">
+              Built for <span className="text-gradient">Real Applications</span>
+            </h2>
+            <p className="mx-auto max-w-2xl text-lg text-slate-400">
+              From high-performance services to safe plugin systems, XXML excels where explicit control matters.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <UseCaseCard
+              icon={<Puzzle className="h-6 w-6" />}
+              title="Safe Plugin Systems"
+              description="Build extensible native apps with runtime type discovery and API versioning. No GC overhead, with full ownership guarantees for extensions."
+            />
+            <UseCaseCard
+              icon={<Database className="h-6 w-6" />}
+              title="Serialization & Data"
+              description="Auto-generate serializers for JSON, RPC, save-games, and configs using reflection and compile-time code generation."
+            />
+            <UseCaseCard
+              icon={<Search className="h-6 w-6" />}
+              title="Debugging Tools"
+              description="Create object inspectors, debug UIs, structured logging, and test discovery systems powered by reflection."
+            />
+            <UseCaseCard
+              icon={<Layout className="h-6 w-6" />}
+              title="Declarative DSLs"
+              description="Express UI layouts, scene graphs, animation systems, asset manifests, and workflow graphs with structured syntax."
+            />
+            <UseCaseCard
+              icon={<Server className="h-6 w-6" />}
+              title="Native Services"
+              description="Build backend services, daemons, and CLI tools where predictable memory and explicit ownership are essential."
+            />
+            <UseCaseCard
+              icon={<GraduationCap className="h-6 w-6" />}
+              title="Education"
+              description="Learn ownership, lifetimes, and memory management through explicit, readable semantics. Perfect for teaching systems concepts."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Links Section */}
+      <section className="relative overflow-hidden px-4 py-28 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-white dark:from-gray-950 dark:to-slate-950" />
+        <div className="grid-pattern absolute inset-0" />
+
         <div className="relative mx-auto max-w-6xl">
           <div className="mb-14 text-center">
-            <h2 className="mb-4 text-4xl font-black text-white">
+            <h2 className="mb-4 text-4xl font-black text-slate-900 dark:text-white">
               Explore <span className="text-gradient">XXML</span>
             </h2>
-            <p className="text-lg text-slate-400">
+            <p className="text-lg text-slate-600 dark:text-slate-400">
               Everything you need to get started and stay connected
             </p>
           </div>
@@ -262,6 +316,26 @@ function FeatureCard({
   );
 }
 
+function UseCaseCard({
+  icon,
+  title,
+  description,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}) {
+  return (
+    <div className="group rounded-xl border border-slate-700/50 bg-slate-800/30 p-6 backdrop-blur-sm transition-all hover:border-violet-500/50 hover:bg-slate-800/50">
+      <div className="mb-4 inline-flex rounded-lg bg-gradient-to-br from-violet-500/20 to-cyan-500/20 p-3 text-violet-400 transition-all group-hover:from-violet-500/30 group-hover:to-cyan-500/30 group-hover:text-violet-300">
+        {icon}
+      </div>
+      <h3 className="mb-2 text-lg font-bold text-white">{title}</h3>
+      <p className="text-sm leading-relaxed text-slate-400">{description}</p>
+    </div>
+  );
+}
+
 function QuickLinkCard({
   href,
   icon,
@@ -276,13 +350,13 @@ function QuickLinkCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col items-center rounded-xl border border-slate-700/50 bg-slate-800/50 p-8 text-center backdrop-blur-sm transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,212,255,0.15)]"
+      className="group flex flex-col items-center rounded-xl border border-slate-200 bg-white/80 p-8 text-center backdrop-blur-sm transition-all hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(0,212,255,0.15)] dark:border-slate-700/50 dark:bg-slate-800/50"
     >
-      <div className="mb-4 text-slate-400 transition-all group-hover:text-cyan-400 group-hover:drop-shadow-[0_0_10px_rgba(0,212,255,0.5)]">
+      <div className="mb-4 text-slate-500 transition-all group-hover:text-cyan-500 group-hover:drop-shadow-[0_0_10px_rgba(0,212,255,0.5)] dark:text-slate-400 dark:group-hover:text-cyan-400">
         {icon}
       </div>
-      <h3 className="mb-2 text-xl font-bold text-white">{title}</h3>
-      <p className="text-slate-400 group-hover:text-slate-300">{description}</p>
+      <h3 className="mb-2 text-xl font-bold text-slate-900 dark:text-white">{title}</h3>
+      <p className="text-slate-600 group-hover:text-slate-700 dark:text-slate-400 dark:group-hover:text-slate-300">{description}</p>
     </Link>
   );
 }

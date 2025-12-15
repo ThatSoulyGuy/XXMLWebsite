@@ -7,6 +7,27 @@ export const metadata = {
   description: "Manage your profile settings",
 };
 
+function formatGender(gender: string | null): string {
+  if (!gender) return "Not specified";
+  const map: Record<string, string> = {
+    MALE: "Male",
+    FEMALE: "Female",
+    OTHER: "Other",
+    PREFER_NOT_TO_SAY: "Prefer not to say",
+  };
+  return map[gender] || gender;
+}
+
+function calculateAge(birthdate: Date): number {
+  const today = new Date();
+  let age = today.getFullYear() - birthdate.getFullYear();
+  const monthDiff = today.getMonth() - birthdate.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthdate.getDate())) {
+    age--;
+  }
+  return age;
+}
+
 export default async function ProfilePage() {
   const profile = await getProfile();
 
@@ -25,11 +46,11 @@ export default async function ProfilePage() {
         </p>
       </div>
 
-      <div className="rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl border border-white/20 bg-white/60 p-6 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60">
         <ProfileForm profile={profile} />
       </div>
 
-      <div className="rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl border border-white/20 bg-white/60 p-6 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
           Account Information
         </h2>
@@ -52,6 +73,24 @@ export default async function ProfilePage() {
               </span>
             </dd>
           </div>
+          <div>
+            <dt className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+              Gender
+            </dt>
+            <dd className="mt-1 text-zinc-900 dark:text-zinc-100">
+              {formatGender(profile.gender)}
+            </dd>
+          </div>
+          {profile.birthdate && (
+            <div>
+              <dt className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+                Age
+              </dt>
+              <dd className="mt-1 text-zinc-900 dark:text-zinc-100">
+                {calculateAge(new Date(profile.birthdate))} years old
+              </dd>
+            </div>
+          )}
           <div>
             <dt className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
               Member since

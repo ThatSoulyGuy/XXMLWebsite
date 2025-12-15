@@ -2,29 +2,22 @@
 
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
-import { auth } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
 import { z } from "zod";
-import type { UserRole } from "@/types";
-
-const DOC_EDITOR_ROLES: UserRole[] = ["DEVELOPER", "ADMIN"];
+import {
+  requireRole,
+  handleSecurityError,
+  ROLES,
+  validateId,
+} from "@/lib/security";
 
 async function requireDeveloperRole() {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return { error: "You must be logged in", user: null };
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { role: true },
-  });
-
-  if (!user || !DOC_EDITOR_ROLES.includes(user.role as UserRole)) {
+  try {
+    const user = await requireRole(ROLES.DEVELOPERS);
+    return { error: null, user };
+  } catch {
     return { error: "You do not have permission to edit documentation", user: null };
   }
-
-  return { error: null, user: session.user };
 }
 
 // ===== PUBLIC READ OPERATIONS =====

@@ -1,28 +1,19 @@
 "use server";
 
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
-
-type UserRole = "USER" | "DEVELOPER" | "MODERATOR" | "ADMIN";
+import {
+  requireRole,
+  handleSecurityError,
+  ROLES,
+  validateId,
+  type UserRole,
+} from "@/lib/security";
 
 async function requireAdmin() {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Not authenticated");
-  }
-
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { role: true },
-  });
-
-  if (user?.role !== "ADMIN") {
-    throw new Error("Not authorized - Admin only");
-  }
-
-  return session.user.id;
+  const user = await requireRole(ROLES.ADMIN_ONLY);
+  return user.id;
 }
 
 export async function getAllUsers() {
@@ -61,9 +52,10 @@ export async function getAllUsers() {
 
 export async function getUserById(userId: string) {
   await requireAdmin();
+  const id = validateId(userId, "User ID");
 
   const user = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id },
     select: {
       id: true,
       email: true,
@@ -115,15 +107,16 @@ export async function updateUser(
   }
 ) {
   const adminId = await requireAdmin();
+  const id = validateId(userId, "User ID");
 
   // Prevent admin from demoting themselves
-  if (userId === adminId && data.role && data.role !== "ADMIN") {
+  if (id === adminId && data.role && data.role !== "ADMIN") {
     throw new Error("Cannot change your own admin role");
   }
 
   // Get current user data for comparison
   const currentUser = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id },
     select: { name: true, username: true, bio: true, role: true },
   });
 
@@ -142,7 +135,7 @@ export async function updateUser(
   }
 
   const updated = await prisma.user.update({
-    where: { id: userId },
+    where: { id },
     data: {
       name: data.name,
       username: data.username,
@@ -178,7 +171,7 @@ export async function updateUser(
     if (changes.length > 0) {
       await prisma.notification.create({
         data: {
-          userId,
+          userId: id,
           message: `An administrator has updated your account: ${changes.join(", ")}`,
           type: "info",
         },
@@ -199,6 +192,7 @@ export async function setUserPassword(
   }
 ) {
   await requireAdmin();
+  const id = validateId(userId, "User ID");
 
   if (newPassword.length < 8) {
     throw new Error("Password must be at least 8 characters");
@@ -207,7 +201,7 @@ export async function setUserPassword(
   const hashedPassword = await bcrypt.hash(newPassword, 12);
 
   await prisma.user.update({
-    where: { id: userId },
+    where: { id },
     data: { password: hashedPassword },
   });
 
@@ -215,7 +209,7 @@ export async function setUserPassword(
   if (options?.notifyUser) {
     await prisma.notification.create({
       data: {
-        userId,
+        userId: id,
         message: "An administrator has reset your password",
         type: "info",
       },
@@ -230,14 +224,15 @@ export async function setUserPassword(
 
 export async function deleteUser(userId: string) {
   const adminId = await requireAdmin();
+  const id = validateId(userId, "User ID");
 
-  if (userId === adminId) {
+  if (id === adminId) {
     throw new Error("Cannot delete your own account");
   }
 
   // Check if user exists
   const user = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { id },
     select: { role: true },
   });
 
@@ -247,7 +242,7 @@ export async function deleteUser(userId: string) {
 
   // Delete user (cascades to related data)
   await prisma.user.delete({
-    where: { id: userId },
+    where: { id },
   });
 
   revalidatePath("/admin");

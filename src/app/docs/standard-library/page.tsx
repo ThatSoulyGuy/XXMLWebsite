@@ -36,7 +36,7 @@ export default async function StandardLibraryPage() {
         {canEdit && (
           <Link
             href="/docs/standard-library/editor"
-            className="flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:border-blue-500 dark:hover:bg-blue-900/30 dark:hover:text-blue-400"
+            className="flex items-center gap-1.5 rounded-lg border border-white/30 bg-white/60 px-3 py-1.5 text-sm font-medium text-zinc-600 backdrop-blur-sm transition-colors hover:border-cyan-500/40 hover:text-cyan-600 dark:border-white/10 dark:bg-zinc-800/60 dark:text-zinc-400 dark:hover:border-cyan-500/40 dark:hover:text-cyan-400"
           >
             <Settings className="h-4 w-4" />
             Manage Documentation
@@ -82,9 +82,9 @@ export default async function StandardLibraryPage() {
       <div className="not-prose my-6 grid gap-4 sm:grid-cols-2">
         <Link
           href="/docs/standard-library/core"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Core Types
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -93,9 +93,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/collections"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Collections
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -104,9 +104,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/iterators"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Iterators
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -115,9 +115,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/console"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Console
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -126,9 +126,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/file-io"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             File I/O
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -137,9 +137,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/text"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Text
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -148,9 +148,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/math"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Math
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -159,9 +159,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/time"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Time
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -170,9 +170,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/json"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             JSON
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -181,9 +181,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/http"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             HTTP
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -192,9 +192,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/standard-library/testing"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Testing
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -203,9 +203,9 @@ export default async function StandardLibraryPage() {
         </Link>
         <Link
           href="/docs/advanced/threading"
-          className="group rounded-lg border border-zinc-200 p-4 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-700 dark:hover:border-zinc-600 dark:hover:bg-zinc-800/50"
+          className="group rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl transition-all hover:border-cyan-500/40 hover:shadow-[0_0_20px_rgba(0,212,255,0.1)] dark:border-white/10 dark:bg-zinc-900/60"
         >
-          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
+          <h3 className="mb-2 font-semibold text-zinc-900 group-hover:text-cyan-600 dark:text-zinc-100">
             Concurrent
           </h3>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -221,7 +221,7 @@ export default async function StandardLibraryPage() {
             {modules.map((module) => (
               <div
                 key={module.id}
-                className="rounded-lg border border-zinc-200 p-4 dark:border-zinc-800"
+                className="rounded-xl border border-white/30 bg-white/60 p-4 shadow-md backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60"
               >
                 <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">
                   {module.name}
@@ -235,7 +235,7 @@ export default async function StandardLibraryPage() {
                       <Link
                         key={cls.id}
                         href={`/docs/standard-library/${module.slug}/${cls.slug}`}
-                        className="rounded-md bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 transition-colors hover:bg-blue-100 hover:text-blue-700 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-blue-900/50 dark:hover:text-blue-400"
+                        className="rounded-md border border-white/20 bg-white/50 px-2 py-0.5 text-xs font-medium text-zinc-700 backdrop-blur-sm transition-colors hover:border-cyan-500/30 hover:text-cyan-700 dark:border-white/10 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:border-cyan-500/30 dark:hover:text-cyan-400"
                       >
                         {cls.name}
                       </Link>
@@ -252,10 +252,10 @@ export default async function StandardLibraryPage() {
       <p>
         The standard library defines these constraints for generic types:
       </p>
-      <div className="not-prose my-6 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+      <div className="not-prose my-6 overflow-hidden rounded-xl border border-white/30 shadow-lg backdrop-blur-xl dark:border-white/10">
         <table className="w-full">
           <thead>
-            <tr className="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-800">
+            <tr className="border-b border-white/20 bg-white/40 dark:border-white/10 dark:bg-zinc-800/60">
               <th className="px-4 py-3 text-left text-sm font-semibold">
                 Constraint
               </th>
@@ -264,7 +264,7 @@ export default async function StandardLibraryPage() {
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-200 dark:divide-zinc-700">
+          <tbody className="divide-y divide-white/20 bg-white/60 dark:divide-white/10 dark:bg-zinc-900/60">
             <tr>
               <td className="px-4 py-3 text-sm">
                 <code>Hashable&lt;T&gt;</code>

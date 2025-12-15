@@ -214,7 +214,7 @@ export function DocsSidebar() {
   );
 
   return (
-    <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-64 shrink-0 overflow-y-auto border-r border-zinc-200 py-8 pr-4 lg:block dark:border-zinc-800">
+    <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-64 shrink-0 overflow-y-auto border-r border-white/20 bg-white/40 py-8 pr-4 backdrop-blur-xl lg:block dark:border-white/10 dark:bg-zinc-900/40">
       <nav className="space-y-6">
         {staticSections.map((section) => (
           <NavSectionComponent key={section.title} section={section} />

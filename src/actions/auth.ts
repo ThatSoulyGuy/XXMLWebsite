@@ -5,8 +5,18 @@ import { signIn, signOut } from "@/lib/auth";
 import bcrypt from "bcryptjs";
 import { loginSchema, signupSchema } from "@/lib/validations/auth";
 import { AuthError } from "next-auth";
+import { headers } from "next/headers";
+import { checkRateLimit, getClientIp, RateLimiters } from "@/lib/rate-limit";
 
 export async function login(prevState: { error: string | null }, formData: FormData) {
+  // Rate limiting
+  const headersList = await headers();
+  const clientIp = getClientIp(headersList);
+  const rateLimitResult = checkRateLimit(clientIp, RateLimiters.auth);
+  if (!rateLimitResult.success) {
+    return { error: `Too many login attempts. Try again in ${rateLimitResult.retryAfterSeconds} seconds.` };
+  }
+
   const validated = loginSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -37,6 +47,14 @@ export async function login(prevState: { error: string | null }, formData: FormD
 }
 
 export async function signup(prevState: { error: string | null }, formData: FormData) {
+  // Rate limiting - stricter for signup
+  const headersList = await headers();
+  const clientIp = getClientIp(headersList);
+  const rateLimitResult = checkRateLimit(clientIp, RateLimiters.signup);
+  if (!rateLimitResult.success) {
+    return { error: `Too many signup attempts. Try again in ${Math.ceil((rateLimitResult.retryAfterSeconds || 3600) / 60)} minutes.` };
+  }
+
   const validated = signupSchema.safeParse({
     name: formData.get("name"),
     handle: formData.get("handle"),

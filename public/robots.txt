@@ -1,0 +1,29 @@
+# XXML Website Robots.txt
+# https://xxml.dev/robots.txt
+
+User-agent: *
+Allow: /
+
+# Block sensitive paths
+Disallow: /api/
+Disallow: /admin/
+Disallow: /user/
+Disallow: /_next/
+Disallow: /blog/*/edit
+Disallow: /forum/*/edit
+Disallow: /downloads/*/edit
+Disallow: /issues/*/edit
+
+# Block common attack paths (for crawlers that respect robots.txt)
+Disallow: /.env
+Disallow: /.git
+Disallow: /wp-admin
+Disallow: /wp-login
+Disallow: /xmlrpc.php
+Disallow: /phpmyadmin
+
+# Sitemap
+Sitemap: https://xxml.dev/sitemap.xml
+
+# Crawl delay for polite bots
+Crawl-delay: 1

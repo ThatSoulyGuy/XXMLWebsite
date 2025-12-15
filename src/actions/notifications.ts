@@ -1,18 +1,22 @@
 "use server";
 
-import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import {
+  getSecurityContext,
+  requireAuth,
+  validateId,
+} from "@/lib/security";
 
 export async function getUnreadNotifications() {
-  const session = await auth();
-  if (!session?.user?.id) {
+  const ctx = await getSecurityContext();
+  if (!ctx.user) {
     return [];
   }
 
   const notifications = await prisma.notification.findMany({
     where: {
-      userId: session.user.id,
+      userId: ctx.user.id,
       read: false,
     },
     orderBy: { createdAt: "desc" },
@@ -23,15 +27,13 @@ export async function getUnreadNotifications() {
 }
 
 export async function markNotificationAsRead(notificationId: string) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Not authenticated");
-  }
+  const user = await requireAuth();
+  const id = validateId(notificationId, "Notification ID");
 
   await prisma.notification.update({
     where: {
-      id: notificationId,
-      userId: session.user.id,
+      id,
+      userId: user.id,
     },
     data: { read: true },
   });
@@ -40,14 +42,11 @@ export async function markNotificationAsRead(notificationId: string) {
 }
 
 export async function markAllNotificationsAsRead() {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Not authenticated");
-  }
+  const user = await requireAuth();
 
   await prisma.notification.updateMany({
     where: {
-      userId: session.user.id,
+      userId: user.id,
       read: false,
     },
     data: { read: true },
@@ -57,15 +56,13 @@ export async function markAllNotificationsAsRead() {
 }
 
 export async function deleteNotification(notificationId: string) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Not authenticated");
-  }
+  const user = await requireAuth();
+  const id = validateId(notificationId, "Notification ID");
 
   await prisma.notification.delete({
     where: {
-      id: notificationId,
-      userId: session.user.id,
+      id,
+      userId: user.id,
     },
   });
 

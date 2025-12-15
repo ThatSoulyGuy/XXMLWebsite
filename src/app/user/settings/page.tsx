@@ -25,7 +25,7 @@ export default async function SettingsPage() {
         </p>
       </div>
 
-      <div className="rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl border border-white/20 bg-white/60 p-6 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
           Appearance
         </h2>
@@ -39,7 +39,7 @@ export default async function SettingsPage() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl border border-white/20 bg-white/60 p-6 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
           Notifications
         </h2>
@@ -73,7 +73,7 @@ export default async function SettingsPage() {
         </p>
       </div>
 
-      <div className="rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+      <div className="rounded-xl border border-white/20 bg-white/60 p-6 shadow-lg backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
           Session
         </h2>
@@ -85,7 +85,7 @@ export default async function SettingsPage() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-red-200 bg-red-50 p-6 dark:border-red-900 dark:bg-red-950/50">
+      <div className="rounded-xl border border-red-300/30 bg-red-50/70 p-6 shadow-lg backdrop-blur-xl dark:border-red-500/20 dark:bg-red-950/40">
         <h2 className="text-lg font-semibold text-red-700 dark:text-red-400">
           Danger Zone
         </h2>
@@ -95,7 +95,7 @@ export default async function SettingsPage() {
         <div className="mt-4">
           <button
             type="button"
-            className="rounded-lg border border-red-300 bg-white px-4 py-2 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:border-red-800 dark:bg-transparent dark:text-red-400 dark:hover:bg-red-950"
+            className="rounded-lg border border-red-300/50 bg-white/80 px-4 py-2 text-sm font-medium text-red-600 backdrop-blur-sm transition-colors hover:bg-red-50 dark:border-red-800/50 dark:bg-red-950/50 dark:text-red-400 dark:hover:bg-red-900/50"
             disabled
           >
             Delete Account

@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://xxml-language.com"),
   title: {
     default: "XXML - A Modern Compiled Programming Language",
     template: "%s | XXML",

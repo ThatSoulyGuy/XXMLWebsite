@@ -1,0 +1,2 @@
+# XXML does not participate in digital advertising
+# This file exists to prevent 404 errors from ad network scanners

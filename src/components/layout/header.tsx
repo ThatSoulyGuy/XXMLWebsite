@@ -34,6 +34,7 @@ interface HeaderProps {
 
 const navigation = [
   { name: "Docs", href: "/docs" },
+  { name: "Downloads", href: "/downloads" },
   { name: "Issues", href: "/issues" },
   { name: "Forum", href: "/forum" },
   { name: "Blog", href: "/blog" },

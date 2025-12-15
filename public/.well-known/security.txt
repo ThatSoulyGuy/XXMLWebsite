@@ -1,0 +1,15 @@
+# XXML Security Policy
+# This file is for security researchers to report vulnerabilities
+
+Contact: mailto:security@xxml.dev
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://xxml.dev/.well-known/security.txt
+
+# Security Scope
+# We appreciate responsible disclosure of security vulnerabilities.
+# Please do not perform denial of service attacks or access private user data.
+
+# Acknowledgments
+# Security researchers who responsibly disclose vulnerabilities may be
+# acknowledged on our security page.

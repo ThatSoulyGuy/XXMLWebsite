@@ -18,6 +18,7 @@ model User {
   image         String?
   bio           String?
   gender        String?   // MALE, FEMALE, OTHER, PREFER_NOT_TO_SAY
+  birthdate     DateTime? // For age verification
   role          String    @default("USER") // USER, DEVELOPER, MODERATOR, ADMIN
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -268,4 +269,22 @@ model DocExample {
   updatedAt DateTime @updatedAt
 
   @@index([classId])
+}
+
+// ===== DOWNLOADS =====
+model Download {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String
+  version     String
+  platform    String   // WINDOWS, MACOS, LINUX, ALL
+  fileUrl     String
+  fileSize    String?  // Human-readable size like "15.2 MB"
+  releaseDate DateTime @default(now())
+  isLatest    Boolean  @default(false)
+  isFeatured  Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
